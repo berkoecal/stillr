@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { useForm } from "@formspree/react";
 
 /* ────────────────────────────────────────────────────────
    Particle system – client-only to avoid hydration errors
@@ -400,49 +401,31 @@ function ManifestoSection() {
             </div>
           </div>
 
-          {/* Right: Product photo — sharp, no filter */}
+          {/* Right: Product photos stacked */}
           <div style={{
-            position: "relative",
+            display: "flex", flexDirection: "column", gap: "1rem",
             opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(50px)",
             transition: "all 0.9s ease 0.35s",
           }}>
-            {/* Tilted neon border accent */}
-            <div style={{
-              position: "absolute",
-              inset: "-12px", borderRadius: "28px",
-              background: "linear-gradient(135deg, rgba(0,207,255,0.25), rgba(168,85,247,0.15), transparent)",
-              zIndex: 0,
-            }} />
-            <div style={{
-              position: "relative", zIndex: 1,
-              borderRadius: "20px", overflow: "hidden",
-            }}>
+            <div style={{ borderRadius: "20px", overflow: "hidden" }}>
               <Image
-                src="/hero-photo.jpg"
-                alt="STILLR Flasche"
+                src="/frau-rooftop.webp"
+                alt="STILLR Rooftop"
                 width={560}
                 height={640}
                 quality={100}
-                style={{ objectFit: "cover", objectPosition: "center 20%", display: "block", width: "100%", height: "auto" }}
+                style={{ objectFit: "cover", display: "block", width: "100%", height: "auto" }}
               />
-              {/* Subtle cyan cast at bottom */}
-              <div style={{
-                position: "absolute", bottom: 0, left: 0, right: 0, height: "40%",
-                background: "linear-gradient(to top, rgba(0,207,255,0.12), transparent)",
-              }} />
             </div>
-
-            {/* Floating label */}
-            <div style={{
-              position: "absolute", bottom: "-16px", right: "-16px", zIndex: 2,
-              background: "#00CFFF", color: "#04060f",
-              borderRadius: "16px", padding: "1rem 1.4rem",
-              fontWeight: 900, fontSize: "0.85rem",
-              lineHeight: 1.3, letterSpacing: "0.02em",
-              boxShadow: "0 8px 32px rgba(0,207,255,0.4)",
-            }}>
-              <div style={{ fontSize: "1.6rem", fontWeight: 900 }}>0%</div>
-              <div>Zucker &amp; Süßstoffe</div>
+            <div style={{ borderRadius: "20px", overflow: "hidden" }}>
+              <Image
+                src="/frau-im-club.webp"
+                alt="STILLR im Club"
+                width={560}
+                height={640}
+                quality={100}
+                style={{ objectFit: "cover", display: "block", width: "100%", height: "auto" }}
+              />
             </div>
           </div>
         </div>
@@ -580,8 +563,7 @@ function QuoteSection() {
 function NotifySection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
-  const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
+  const [state, handleSubmit] = useForm("xbdqorgl");
 
   return (
     <section id="notify" ref={ref} style={{
@@ -628,23 +610,7 @@ function NotifySection() {
           STILLR kommt bald in die Clubs und Bars deiner Stadt. Trag dich ein — Frühzugang, exklusiv.
         </p>
 
-        {!done ? (
-          <form onSubmit={e => { e.preventDefault(); if (email.trim()) setDone(true); }}
-            className="notify-form"
-            style={{ opacity: inView ? 1 : 0, transition: "all 0.7s ease 0.3s" }}>
-            <input
-              type="email" required value={email} onChange={e => setEmail(e.target.value)}
-              placeholder="deine@email.de"
-              className="notify-input"
-            />
-            <button type="submit" className="notify-btn"
-              onMouseEnter={e => e.currentTarget.style.boxShadow = "0 0 30px rgba(0,207,255,0.6)"}
-              onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-            >
-              Eintragen
-            </button>
-          </form>
-        ) : (
+        {state.succeeded ? (
           <div style={{
             display: "inline-block",
             border: "1.5px solid rgba(0,207,255,0.3)",
@@ -655,6 +621,22 @@ function NotifySection() {
             <div style={{ color: "#00CFFF", fontWeight: 700 }}>Du bist dabei.</div>
             <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem", marginTop: "4px" }}>Wir melden uns sobald STILLR live geht.</div>
           </div>
+        ) : (
+          <form onSubmit={handleSubmit}
+            className="notify-form"
+            style={{ opacity: inView ? 1 : 0, transition: "all 0.7s ease 0.3s" }}>
+            <input
+              type="email" name="email" required
+              placeholder="deine@email.de"
+              className="notify-input"
+            />
+            <button type="submit" className="notify-btn" disabled={state.submitting}
+              onMouseEnter={e => e.currentTarget.style.boxShadow = "0 0 30px rgba(0,207,255,0.6)"}
+              onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
+            >
+              {state.submitting ? "..." : "Eintragen"}
+            </button>
+          </form>
         )}
         <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.72rem", marginTop: "1.25rem" }}>Kein Spam. Abmeldung jederzeit möglich.</p>
       </div>
@@ -716,14 +698,14 @@ function Footer() {
         © 2025 STILLR GmbH · Smart Hydration für das Nightlife
       </div>
       <div style={{ display: "flex", gap: "1.5rem" }}>
-        {["Impressum", "Datenschutz"].map(l => (
-          <a key={l} href="#" style={{
+        {[["Impressum", "/impressum"], ["Datenschutz", "/datenschutz"]].map(([label, href]) => (
+          <a key={label} href={href} style={{
             color: "rgba(255,255,255,0.25)", textDecoration: "none",
             fontSize: "0.75rem", transition: "color 0.2s",
           }}
             onMouseEnter={e => e.currentTarget.style.color = "#fff"}
             onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.25)"}
-          >{l}</a>
+          >{label}</a>
         ))}
       </div>
     </footer>
