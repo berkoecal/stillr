@@ -1,0 +1,82 @@
+/*
+ * STILLR — Brand Color Palette
+ * ============================================================
+ * Alle Farbtöne der Marke als CSS Custom Properties.
+ * Kann in jede Stylesheet-Datei importiert werden:
+ *   @import '../brand/colors.css';
+ * ============================================================
+ */
+
+:root {
+
+  /* ----------------------------------------------------------
+   * PRIMARY — Neon Cyan
+   * Der Hauptakzent. Buttons, Links, Highlights, Glows.
+   * ---------------------------------------------------------- */
+  --color-cyan:          #00CFFF;   /* Vollton — Primäre Akzentfarbe     */
+  --color-cyan-glow:     rgba(0, 207, 255, 0.45);  /* Glow / Box-Shadow  */
+  --color-cyan-dim:      rgba(0, 207, 255, 0.15);  /* Hintergrund-Tint   */
+  --color-cyan-subtle:   rgba(0, 207, 255, 0.06);  /* Sehr heller Hauch  */
+
+  /* ----------------------------------------------------------
+   * SECONDARY — Neon Purple
+   * Zweiter Akzent. Particles, Orbs, Scroll-Thumb.
+   * ---------------------------------------------------------- */
+  --color-purple-deep:   #7B2FFF;   /* Satter Lila — kräftig, dunkel     */
+  --color-purple-vivid:  #A855F7;   /* Leuchtendes Lila — Particles      */
+  --color-purple-dim:    rgba(123, 47, 255, 0.20); /* Hintergrund-Tint   */
+  --color-purple-subtle: rgba(168, 85, 247, 0.10); /* Orbs, weit entfernt */
+
+  /* ----------------------------------------------------------
+   * BACKGROUNDS — Deep Space Blacks
+   * Abstufungen für Sections und Karten.
+   * ---------------------------------------------------------- */
+  --color-bg-base:       #04060f;   /* Haupt-Hintergrund (Hero, Quote)   */
+  --color-bg-deep:       #06081a;   /* Dunkelster Ton — Body-Hintergrund */
+  --color-bg-section:    #060810;   /* Abwechselnde Sections             */
+  --color-bg-card:       #0d1230;   /* Karten & Panels                   */
+
+  /* ----------------------------------------------------------
+   * TEXT
+   * ---------------------------------------------------------- */
+  --color-text-primary:  #ffffff;              /* Headlines, Fließtext    */
+  --color-text-secondary: rgba(255, 255, 255, 0.75); /* Taglines          */
+  --color-text-muted:    rgba(255, 255, 255, 0.45);  /* Beschreibungen    */
+  --color-text-faint:    rgba(255, 255, 255, 0.25);  /* Footer, Labels    */
+  --color-text-gray:     #8a9bc4;              /* Infotexte, Meta         */
+
+  /* ----------------------------------------------------------
+   * BORDERS & DIVIDERS
+   * ---------------------------------------------------------- */
+  --color-border-cyan:   rgba(0, 207, 255, 0.35);   /* Badges, Cards     */
+  --color-border-white:  rgba(255, 255, 255, 0.07); /* Trennlinien        */
+  --color-border-subtle: rgba(255, 255, 255, 0.15); /* Buttons            */
+
+  /* ----------------------------------------------------------
+   * TYPOGRAPHY
+   * ---------------------------------------------------------- */
+  --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-weight-black:    900;
+  --font-weight-bold:     700;
+  --font-weight-semibold: 600;
+  --font-weight-regular:  400;
+
+}
+
+/*
+ * ============================================================
+ * QUICK REFERENCE — Hex-Werte für Figma / Sketch / Illustrator
+ * ============================================================
+ *
+ * Cyan         #00CFFF   RGB(0, 207, 255)
+ * Purple Deep  #7B2FFF   RGB(123, 47, 255)
+ * Purple Vivid #A855F7   RGB(168, 85, 247)
+ * White        #FFFFFF   RGB(255, 255, 255)
+ * Gray         #8A9BC4   RGB(138, 155, 196)
+ *
+ * BG Base      #04060F   RGB(4, 6, 15)
+ * BG Deep      #06081A   RGB(6, 8, 26)
+ * BG Section   #060810   RGB(6, 8, 16)
+ * BG Card      #0D1230   RGB(13, 18, 48)
+ * ============================================================
+ */
