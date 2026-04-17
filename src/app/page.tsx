@@ -10,7 +10,9 @@ import { useForm } from "@formspree/react";
 function Particles() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    setMounted(true);
+    setTimeout(() => {
+      setMounted(true);
+    }, 100);
   }, []);
 
   const [particles] = useState(() =>
