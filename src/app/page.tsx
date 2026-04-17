@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useForm } from "@formspree/react";
 
 /* ────────────────────────────────────────────────────────
-   Particle system – client-only to avoid hydration errors
+   Particle system – client-only to avoid hydration errors!
    ──────────────────────────────────────────────────────── */
 function Particles() {
   const [mounted, setMounted] = useState(false);
